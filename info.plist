@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>nl.staron.david.synonyms</string>
+	<key>connections</key>
+	<dict>
+		<key>743A57CF-C45B-43B5-81F1-AE87A4725B09</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>66925CFB-213B-4F7E-8CB7-5165623DE9F5</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+		<key>CD357D0B-BFC9-4DE2-A45E-3291C62463B7</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>66925CFB-213B-4F7E-8CB7-5165623DE9F5</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>David Staron</string>
+	<key>description</key>
+	<string>Display synonyms from synonyms.net</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>Synonyms</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>escaping</key>
+				<integer>0</integer>
+				<key>keyword</key>
+				<string>synonyms</string>
+				<key>runningsubtext</key>
+				<string>getting results, please wait...</string>
+				<key>script</key>
+				<string>from synonyms import search_synonyms
+
+# You can replace these with your own userid and token, you can apply for them at http://www.synonyms.net/api.php (there's a maximum limit of 1000 query's per account per day)
+
+iUid = 2909
+sTokenID = "HOoAQOAKYGutZOMk"
+
+print(search_synonyms(iUid, sTokenID, "{query}","synonyms"))
+</string>
+				<key>title</key>
+				<string>synonyms</string>
+				<key>type</key>
+				<integer>3</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>CD357D0B-BFC9-4DE2-A45E-3291C62463B7</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>plusspaces</key>
+				<false/>
+				<key>url</key>
+				<string>{query}</string>
+				<key>utf8</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.openurl</string>
+			<key>uid</key>
+			<string>66925CFB-213B-4F7E-8CB7-5165623DE9F5</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>escaping</key>
+				<integer>0</integer>
+				<key>keyword</key>
+				<string>antonyms</string>
+				<key>runningsubtext</key>
+				<string>getting results, please wait...</string>
+				<key>script</key>
+				<string>from synonyms import search_synonyms
+
+# You can replace these with your own userid and token, you can apply for them at http://www.synonyms.net/api.php (there's a maximum limit of 1000 query's per account per day)
+ 
+iUid = 2909
+sTokenID = "HOoAQOAKYGutZOMk"
+
+print(search_synonyms(iUid, sTokenID, "{query}","antonyms"))
+
+</string>
+				<key>title</key>
+				<string>antonyms</string>
+				<key>type</key>
+				<integer>3</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>743A57CF-C45B-43B5-81F1-AE87A4725B09</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string></string>
+	<key>uidata</key>
+	<dict>
+		<key>66925CFB-213B-4F7E-8CB7-5165623DE9F5</key>
+		<dict>
+			<key>ypos</key>
+			<real>130</real>
+		</dict>
+		<key>743A57CF-C45B-43B5-81F1-AE87A4725B09</key>
+		<dict>
+			<key>ypos</key>
+			<real>250</real>
+		</dict>
+		<key>CD357D0B-BFC9-4DE2-A45E-3291C62463B7</key>
+		<dict>
+			<key>ypos</key>
+			<real>30</real>
+		</dict>
+	</dict>
+	<key>webaddress</key>
+	<string>david@staron.nl</string>
+</dict>
+</plist>

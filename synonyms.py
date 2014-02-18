@@ -38,8 +38,12 @@ def search_synonyms(iUid, sTokenID, sSearchTerm, sSearchType):
                     if not tmp[0] in synonyms and tmp[0] != sSearchTerm:
                         node3 = node.find('definition').text
                         if node3 is not None:
+                            if sSearchType == 'synonyms':
+                                sSubtitle = node3
+                            else:
+                                sSubtitle = ''
                             feedback.addItem(title=tmp[0],
-                                             subtitle=node3,
+                                             subtitle=sSubtitle,
                                              arg="http://www.synonyms.net/%s/%s" % (sSearchType, sSearchTerm),
                                              valid=True,)
                             synonyms.append(tmp[0])

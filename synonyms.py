@@ -1,16 +1,33 @@
-import urllib
-import urllib2
-import alfred
-import time
-from xml.etree import ElementTree
+#!/usr/bin/python
+# encoding: utf-8
+import sys
+from workflow import Workflow3
 
-url = 'http://www.stands4.com/services/v2/syno.php?%s'
-#example url:  http://www.stands4.com/services/v2/syno.php?uid=2909&tokenid=HOoAQOAKYGutZOMk&word=consistent
+def main(wf):
+    import os
+    import urllib
+    import urllib2
+    import time
+    from xml.etree import ElementTree
 
-MAX_RESULT = 20
+    # Get args from Workflow as normalized Unicode
+    args = wf.args
 
+    #sUrl = 'http://www.stands4.com/services/v2/syno.php?%s'
+    sUrl = 'https://www.abbreviations.com/services/v2/syno.php?%s'
 
-def search_synonyms(iUid, sTokenID, sSearchTerm, sSearchType):
+    iMaxResults = 25
+    iUid = os.getenv('uid')         # <- this value is configured in the workflow variables in Alfred
+    sTokenID = os.getenv('tokenid') # <- this value is configured in the workflow variables in Alfred
+    sSearchTerm = args[0]
+    sSearchType = args[1]
+
+    if not iUid or not sTokenID:    # if not configured in workflow, use default/shared account
+        iUid = 2909
+        sTokenID = "HOoAQOAKYGutZOMk"
+
+    #print "using iUid %s" % (iUid)
+    #print "using sTokenID %s" % (sTokenID)
 
     if len(sSearchTerm) > 1:
         params = urllib.urlencode({
@@ -18,45 +35,50 @@ def search_synonyms(iUid, sTokenID, sSearchTerm, sSearchType):
             'tokenid': sTokenID,
             'word': sSearchTerm,
             })
-        data = urllib2.urlopen(url, params).read()
+        data = urllib2.urlopen(sUrl, params).read()
         res = ElementTree.fromstring(data)
+        #print "data is " + data
 
-        feedback = alfred.Feedback()
-        feedback.addItem(title=u"Search synonyms.net for \"%s\"" % "".join(sSearchTerm),
-                         subtitle=u"Opens search results in webbrowser",
-                         arg="http://www.synonyms.net/synonym/%s" % sSearchTerm,
-                         valid=True,
-                         )
+        if sSearchType == "synonyms":
+            sArg = "http://www.synonyms.net/synonym/%s" % (sSearchTerm)
+        else:
+            sArg = "http://www.synonyms.net/%s/%s" % (sSearchType, sSearchTerm)
 
-        synonyms = []
+        aTitles = []
+        aSubtitles = []
         i = 0
         for node in res.findall('result'):
             node2 = node.find(sSearchType).text
             if node2 is not None:
                 tmp = node2.split(", ")
                 while tmp:
-                    if not tmp[0] in synonyms and tmp[0] != sSearchTerm:
+                    if not tmp[0] in aTitles and tmp[0] != sSearchTerm:
                         node3 = node.find('definition').text
                         if node3 is not None:
                             if sSearchType == 'synonyms':
                                 sSubtitle = node3
                             else:
                                 sSubtitle = ''
-                            feedback.addItem(title=tmp[0],
-                                             subtitle=sSubtitle,
-                                             arg="http://www.synonyms.net/%s/%s" % (sSearchType, sSearchTerm),
-                                             valid=True,)
-                            synonyms.append(tmp[0])
+                            sTitle = tmp[0]
+                            aTitles.append(sTitle)
+                            aSubtitles.append(sSubtitle)
                             i += 1
 
                     del tmp[0]
-                    if i >= MAX_RESULT:
+                    if i >= iMaxResults:
                         break
 
-        return feedback
-    else:
-        return None
+        for idx, iTitle in enumerate(aTitles):
+            wf.add_item(title=iTitle, subtitle=aSubtitles[idx], arg=sArg, valid=True)
+
+        # Send output to Alfred
+        wf.send_feedback()
 
 
-# search_synonyms(2909, 'HOoAQOAKYGutZOMk', 'consistent', 'synonyms')
-# search_synonyms(2909, 'HOoAQOAKYGutZOMk', 'consistent', 'antonyms')
+if __name__ == '__main__':
+    # Create a global `Workflow3` object
+    wf = Workflow3()
+    # Call your entry function via `Workflow3.run()` to enable its
+    # helper functions, like exception catching, ARGV normalization,
+    # magic arguments etc.
+    sys.exit(wf.run(main))

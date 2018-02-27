@@ -6,7 +6,7 @@
 	<string>nl.staron.david.synonyms</string>
 	<key>connections</key>
 	<dict>
-		<key>743A57CF-C45B-43B5-81F1-AE87A4725B09</key>
+		<key>377C9EA0-1D59-47D6-812F-8B603C13D51B</key>
 		<array>
 			<dict>
 				<key>destinationuid</key>
@@ -15,6 +15,8 @@
 				<integer>0</integer>
 				<key>modifiersubtext</key>
 				<string></string>
+				<key>vitoclose</key>
+				<false/>
 			</dict>
 		</array>
 		<key>CD357D0B-BFC9-4DE2-A45E-3291C62463B7</key>
@@ -26,6 +28,8 @@
 				<integer>0</integer>
 				<key>modifiersubtext</key>
 				<string></string>
+				<key>vitoclose</key>
+				<false/>
 			</dict>
 		</array>
 	</dict>
@@ -42,28 +46,40 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
 				<key>argumenttype</key>
 				<integer>0</integer>
 				<key>escaping</key>
-				<integer>0</integer>
+				<integer>102</integer>
 				<key>keyword</key>
 				<string>synonyms</string>
+				<key>queuedelaycustom</key>
+				<integer>1</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<false/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
 				<key>runningsubtext</key>
 				<string>getting results, please wait...</string>
 				<key>script</key>
-				<string>from synonyms import search_synonyms
-
-# You can replace these with your own userid and token, you can apply for them at http://www.synonyms.net/api.php (there's a maximum limit of 1000 query's per account per day)
-
-iUid = 2909
-sTokenID = "HOoAQOAKYGutZOMk"
-
-print(search_synonyms(iUid, sTokenID, "{query}","synonyms"))
-</string>
+				<string>python synonyms.py "{query}" "synonyms"</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string></string>
 				<key>title</key>
 				<string>synonyms</string>
 				<key>type</key>
-				<integer>3</integer>
+				<integer>0</integer>
 				<key>withspace</key>
 				<true/>
 			</dict>
@@ -72,13 +88,15 @@ print(search_synonyms(iUid, sTokenID, "{query}","synonyms"))
 			<key>uid</key>
 			<string>CD357D0B-BFC9-4DE2-A45E-3291C62463B7</string>
 			<key>version</key>
-			<integer>0</integer>
+			<integer>2</integer>
 		</dict>
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>plusspaces</key>
-				<false/>
+				<key>browser</key>
+				<string></string>
+				<key>spaces</key>
+				<string></string>
 				<key>url</key>
 				<string>{query}</string>
 				<key>utf8</key>
@@ -89,65 +107,92 @@ print(search_synonyms(iUid, sTokenID, "{query}","synonyms"))
 			<key>uid</key>
 			<string>66925CFB-213B-4F7E-8CB7-5165623DE9F5</string>
 			<key>version</key>
-			<integer>0</integer>
+			<integer>1</integer>
 		</dict>
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
 				<key>argumenttype</key>
 				<integer>0</integer>
 				<key>escaping</key>
-				<integer>0</integer>
+				<integer>102</integer>
 				<key>keyword</key>
 				<string>antonyms</string>
+				<key>queuedelaycustom</key>
+				<integer>1</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<false/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
 				<key>runningsubtext</key>
 				<string>getting results, please wait...</string>
 				<key>script</key>
-				<string>from synonyms import search_synonyms
-
-# You can replace these with your own userid and token, you can apply for them at http://www.synonyms.net/api.php (there's a maximum limit of 1000 query's per account per day)
- 
-iUid = 2909
-sTokenID = "HOoAQOAKYGutZOMk"
-
-print(search_synonyms(iUid, sTokenID, "{query}","antonyms"))
-
-</string>
+				<string>python synonyms.py "{query}" "antonyms"</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string></string>
 				<key>title</key>
 				<string>antonyms</string>
 				<key>type</key>
-				<integer>3</integer>
+				<integer>0</integer>
 				<key>withspace</key>
 				<true/>
 			</dict>
 			<key>type</key>
 			<string>alfred.workflow.input.scriptfilter</string>
 			<key>uid</key>
-			<string>743A57CF-C45B-43B5-81F1-AE87A4725B09</string>
+			<string>377C9EA0-1D59-47D6-812F-8B603C13D51B</string>
 			<key>version</key>
-			<integer>0</integer>
+			<integer>2</integer>
 		</dict>
 	</array>
 	<key>readme</key>
-	<string></string>
+	<string>You should set "tokenid" and "uid" to your own userid and token, you can apply for them at http://www.synonyms.net/api.php
+(there's a maximum / limit of 1000 query's per account per day)</string>
 	<key>uidata</key>
 	<dict>
+		<key>377C9EA0-1D59-47D6-812F-8B603C13D51B</key>
+		<dict>
+			<key>xpos</key>
+			<integer>300</integer>
+			<key>ypos</key>
+			<integer>240</integer>
+		</dict>
 		<key>66925CFB-213B-4F7E-8CB7-5165623DE9F5</key>
 		<dict>
+			<key>xpos</key>
+			<integer>500</integer>
 			<key>ypos</key>
 			<real>130</real>
 		</dict>
-		<key>743A57CF-C45B-43B5-81F1-AE87A4725B09</key>
-		<dict>
-			<key>ypos</key>
-			<real>250</real>
-		</dict>
 		<key>CD357D0B-BFC9-4DE2-A45E-3291C62463B7</key>
 		<dict>
+			<key>xpos</key>
+			<integer>300</integer>
 			<key>ypos</key>
 			<real>30</real>
 		</dict>
 	</dict>
+	<key>variables</key>
+	<dict>
+		<key>tokenid</key>
+		<string>&lt;your-token-here&gt;</string>
+		<key>uid</key>
+		<string>&lt;your-userid-here&gt;</string>
+	</dict>
+	<key>version</key>
+	<string>2018.2</string>
 	<key>webaddress</key>
 	<string>david@staron.nl</string>
 </dict>
